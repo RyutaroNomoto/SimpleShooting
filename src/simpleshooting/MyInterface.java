@@ -1,6 +1,8 @@
 package simpleshooting;
 
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public interface MyInterface {
@@ -18,5 +20,12 @@ public interface MyInterface {
 		final Image BACKGROUND1 = MyFrame.setImage("Background1.png");
 		final Image BACKGROUND2 = MyFrame.setImage("Background2.png");
 		final Image EXPLOSION = MyFrame.setImage("Explosion.png");
+		final Image PLAYER_BULLET = MyFrame.setImage("PlayerBullet.png");
+	}
+
+	public interface SpriteSet{
+		final List<Explosion> explosions = new ArrayList<Explosion>();
+		final List<Enemy> enemies = new ArrayList<Enemy>();
+		final List<Bullet> bullets = new ArrayList<Bullet>();
 	}
 }
