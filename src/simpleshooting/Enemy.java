@@ -20,8 +20,8 @@ public class Enemy extends GameObject {
 	@Override
 	public boolean collideWith(GameObject object) {
 		// 引数として与えられたobjectが死んでいない and 2つのobjectが違う属性(敵同士)ならあたり判定処理をする
-		if (x < object.getX() + object.getWidth() && object.getX() < x + width && y < object.getY() + object.getHeight()
-				&& object.getY() < y + height) {
+		if (this.x < object.getX() + object.getWidth() && object.getX() < this.x + this.width
+				&& this.y < object.getY() + object.getHeight() && object.getY() < this.y + this.height) {
 			return true;
 		}
 		return false;

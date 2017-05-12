@@ -25,7 +25,9 @@ public class EnemyHeri extends Enemy {
 			delete();
 		}
 		cntFrame++;
-		y += moveSpeed;
+		if(y <= 300){
+			y += moveSpeed;
+		}
 	}
 
 	@Override
