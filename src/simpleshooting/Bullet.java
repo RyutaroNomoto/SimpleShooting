@@ -1,16 +1,19 @@
 package simpleshooting;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 public class Bullet extends GameObject {
 
+	private static int bulletNum = 0;
+	private int bulletNo;
+
 	public Bullet(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.width = 5;
-		this.height = 5;
+		this.width = 12;
+		this.height = 36;
 		this.setType(ObjectType.player);
+		this.bulletNo = ++bulletNum;
 	}
 
 	@Override
@@ -34,11 +37,14 @@ public class Bullet extends GameObject {
 
 	@Override
 	public void draw(Graphics g, int cntFrame) {
-		if (this.isAlive()) {
-			g.setColor(Color.RED);
-			g.drawLine(x, y, x + 5, y + 15);
-			g.drawLine(x, y, x - 5, y + 15);
-			g.drawLine(x + 5, y + 15, x - 5, y + 15);
+		if (isAlive()) {
+			if (bulletNo % 2 == 0) {
+				g.drawImage(MyInterface.Imageset.PLAYER_BULLET, x + 21, y - 18, x + 9, y + 18, 100, 231, 112, 267,
+						null);
+			} else {
+				g.drawImage(MyInterface.Imageset.PLAYER_BULLET, x - 20, y - 18, x - 8, y + 18, 100, 231, 112, 267,
+						null);
+			}
 		}
 	}
 }

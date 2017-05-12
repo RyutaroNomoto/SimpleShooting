@@ -21,4 +21,16 @@ public final class MyFrame {
 		}
 		return null;
 	}
+
+	public static void objectsUpdate() {
+		for (int i = 0; i < MyInterface.SpriteSet.enemies.size(); i++) {
+			MyInterface.SpriteSet.enemies.get(i).update();
+		}
+		for (int i = 0; i < MyInterface.SpriteSet.bullets.size(); i++) {
+			MyInterface.SpriteSet.bullets.get(i).update();
+		}
+		for (int i = 0; i < MyInterface.SpriteSet.explosions.size(); i++) {
+			MyInterface.SpriteSet.explosions.get(i).update();
+		}
+	}
 }
