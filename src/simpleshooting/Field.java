@@ -27,6 +27,7 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 	private int score;
 	private int backImgY1;
 	private int backImgY2;
+	private int bulletRate = 8;
 	private JLabel label;
 	private List<Bullet> bullets = MyInterface.SpriteSet.bullets;
 	private List<Enemy> enemies = MyInterface.SpriteSet.enemies;
@@ -89,7 +90,7 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 
 		cntFrame++; // フレーム数をカウントアップ
 
-		if (cntFrame % 5 == 0 && shot) {
+		if (cntFrame % bulletRate == 0 && shot) {
 			bullets.add(player.shoot());
 		}
 
@@ -105,14 +106,15 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 				continue; // isAlive()で生きているか確認
 			}
 			// collideWidthﾒｿｯﾄﾞでobjectsList内のobject全てと当たり判定検査をする
-			for (Bullet b : bullets) { // 敵との当たり判定
+			for (Bullet b : bullets) { // プレイヤーの弾と敵の当たり判定
 				if (isCollision(b, ene)) { // 2つのゲームオブジェクトのあたり判定をbooleanで返す
+					b.hit();
 					score += ene.hit();
 				}
 			}
 		}
 		if (!isPose) {
-			if (enemies.size() <= 5 && cntFrame % 20 == 0) {
+			if (enemies.size() <= 9 && cntFrame % 15 == 0) {
 				enemies.add(new EnemyHeri(MyInterface.RAND.nextInt(MyInterface.GAME_WIDTH), -5));
 			}
 			player.move(right, left, up, down);
@@ -135,8 +137,13 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 		repaint();
 	}
 
-	private boolean isCollision(GameObject g1, GameObject g2) {
-		return g1.collideWith(g2) && g2.collideWith(g1);
+	/**
+	 * 2つのオブジェクトが衝突したかどうかを返す
+	 * @return boolean
+	 */
+	private boolean isCollision(GameObject obj1, GameObject obj2) {
+		//return go1.collideWith(go2) && go2.collideWith(go1);
+		return obj1.collideWith(obj2);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ abstract public class GameObject {
 	protected boolean isAlive = true;
 	protected Image img;
 
-	public boolean isAlive() {
+	protected boolean isAlive() {
 		return isAlive;
 	}
 
@@ -25,15 +25,20 @@ abstract public class GameObject {
 		this.isAlive = false;
 	}
 
-	public ObjectType getType() {
+	protected ObjectType getType() {
 		return this.type;
 	}
 
-	public void setType(ObjectType type) {
+	protected void setType(ObjectType type) {
 		this.type = type;
 	}
 
-	public boolean collideWith(GameObject object) {
+	/**
+	 * 自分と他のオブジェクトが衝突したか検査する
+	 * @param object 自分と衝突したか検査するオブジェクト
+	 * @return boolean
+	 */
+	protected boolean collideWith(GameObject object) {
 		// 引数として与えられたobjectが死んでいない and 2つのobjectが違う属性(敵同士)ならあたり判定処理をする
 		if (object.isAlive() && this.type != object.getType()) {
 			if (x < object.x + object.width && object.x < x + width && y < object.y + object.height
@@ -52,19 +57,19 @@ abstract public class GameObject {
 		return 0;
 	}
 
-	public int getX() {
-		return x;
+	protected int getX() {
+		return x - this.width / 2;
 	}
 
-	public int getY() {
-		return y;
+	protected int getY() {
+		return y - this.height / 2;
 	}
 
-	public int getWidth() {
+	protected int getWidth() {
 		return width;
 	}
 
-	public int getHeight() {
+	protected int getHeight() {
 		return height;
 	}
 

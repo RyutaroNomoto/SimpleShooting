@@ -1,6 +1,5 @@
 package simpleshooting;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 public class EnemyHeri extends Enemy {
@@ -9,7 +8,7 @@ public class EnemyHeri extends Enemy {
 
 	public EnemyHeri(int x, int y) {
 		super(x, y);
-		this.life = 3;
+		this.life = 1;
 		this.x = x;
 		this.y = y;
 		this.width = 46;
@@ -25,9 +24,8 @@ public class EnemyHeri extends Enemy {
 			delete();
 		}
 		cntFrame++;
-		if(y <= 300){
-			y += moveSpeed;
-		}
+		y += moveSpeed;
+
 	}
 
 	@Override
@@ -35,18 +33,6 @@ public class EnemyHeri extends Enemy {
 		if (!isAlive() || img == null)
 			return;
 		g.drawImage(img, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 63, 0, 109, 53, null);
-		switch (life) {
-		case 3:
-			g.setColor(Color.GREEN);
-			break;
-		case 2:
-			g.setColor(Color.YELLOW);
-			break;
-		case 1:
-			g.setColor(Color.RED);
-			break;
-		}
-		g.drawRect(x - width / 2, y - height / 2, width, height);
 		if (this.cntFrame % 6 < 3) {
 			g.drawImage(img, x - 24, y - 15, x + 24, y + 15, 117, 0, 166, 30, null);
 		} else {

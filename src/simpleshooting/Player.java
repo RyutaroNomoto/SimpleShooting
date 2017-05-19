@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 public class Player extends GameObject {
 
-	private int moveSpeed = 7;
+	private int moveSpeed = 8;
 	private int width = 62;
 	private int height = 61;
 	private int centerX = width / 2;
@@ -23,20 +23,27 @@ public class Player extends GameObject {
 		if (img == null)
 			return;
 		if (right && !left) {
-			g.drawImage(img, x - 25, y - 30, x + 25, y + 30, 130, 0, 180, 60, null);
+			g.drawImage(img, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 130, 0, 180, 60, null);
 		} else if (left && !right) {
-			g.drawImage(img, x - 25, y - 30, x + 25, y + 30, 74, 0, 124, 60, null);
+			g.drawImage(img, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 74, 0, 124, 60, null);
 		} else {
-			g.drawImage(img, x - 31, y - 30, x + 31, y + 30, 0, 0, 62, 61, null);
+			g.drawImage(img, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 0, 0, 62, 61, null);
 		}
 	}
+
+	/*
+	 * g.drawImage(img, x - 25, y - 30, x + 25, y + 30, 130, 0, 180, 60, null);
+	 * } else if (left && !right) { g.drawImage(img, x - 25, y - 30, x + 25, y +
+	 * 30, 74, 0, 124, 60, null); } else { g.drawImage(img, x - 31, y - 30, x +
+	 * 31, y + 30, 0, 0, 62, 61, null); }
+	 */
 
 	@Override
 	public void update() {
 	}
 
 	public Bullet shoot() {
-		return new Bullet(x, y);
+		return new PlayerBullet(x, y);
 	}
 
 	public void move(boolean right, boolean left, boolean up, boolean down) {
