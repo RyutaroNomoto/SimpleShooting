@@ -15,7 +15,7 @@ public class PlayerBullet extends Bullet {
 		this.x = bulletNum++ % 2 == 0 ? this.x + 17 : this.x - 17;
 
 		this.y = y - 10;
-		this.setType(ObjectType.player);
+		this.setType(ObjectType.PLAYER);
 	}
 
 	@Override

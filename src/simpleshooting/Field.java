@@ -65,7 +65,7 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 		// objects.add(new EnemyHoming(0, 0, player));
 
 		for (int i = 0; i < 11; i++) {
-			enemies.add(new EnemyHeri(i * (600 / 10), 20));
+			enemies.add(new EnemyHeri2(i * (600 / 10), 20));
 		}
 
 		// objects.add(new TestEnemy(MyInterface.GAME_X_CENTER, -5));
@@ -85,10 +85,9 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 		String str = Integer.toString(score);
 		str = "スコア : " + str;
 		label.setText(str);
-		label.setBounds(450, -15, 150, 50);
+		label.setBounds(400, -10, 150, 50);
+		label.setFont(MyInterface.SCORE_FONT);
 		this.add(label);
-
-		cntFrame++; // フレーム数をカウントアップ
 
 		if (cntFrame % bulletRate == 0 && shot) {
 			bullets.add(player.shoot());
@@ -114,8 +113,13 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 			}
 		}
 		if (!isPose) {
+			cntFrame++; // フレーム数をカウントアップ
 			if (enemies.size() <= 9 && cntFrame % 15 == 0) {
-				enemies.add(new EnemyHeri(MyInterface.RAND.nextInt(MyInterface.GAME_WIDTH), -5));
+				if (MyInterface.RAND.nextBoolean()) { // 半々の確率でHeri1かHeri2を出現させる
+					enemies.add(new EnemyHeri1(MyInterface.RAND.nextInt(MyInterface.GAME_WIDTH), -5));
+				} else {
+					enemies.add(new EnemyHeri2(MyInterface.RAND.nextInt(MyInterface.GAME_WIDTH), -5));
+				}
 			}
 			player.move(right, left, up, down);
 			player.update();
@@ -139,11 +143,16 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 
 	/**
 	 * 2つのオブジェクトが衝突したかどうかを返す
+	 *
 	 * @return boolean
 	 */
 	private boolean isCollision(GameObject obj1, GameObject obj2) {
-		//return go1.collideWith(go2) && go2.collideWith(go1);
+		// return go1.collideWith(go2) && go2.collideWith(go1);
 		return obj1.collideWith(obj2);
+	}
+
+	public static int getFrame() {
+		return cntFrame;
 	}
 
 	@Override

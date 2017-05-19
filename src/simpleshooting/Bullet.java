@@ -11,7 +11,7 @@ public class Bullet extends GameObject {
 		this.y = y;
 		this.width = 12;
 		this.height = 36;
-		this.setType(ObjectType.player);
+		this.setType(ObjectType.PLAYER);
 	}
 
 	@Override

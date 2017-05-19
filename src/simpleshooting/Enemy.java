@@ -14,7 +14,7 @@ public class Enemy extends GameObject {
 		this.y = y;
 		this.width = 20;
 		this.height = 20;
-		this.setType(ObjectType.enemy);
+		this.setType(ObjectType.ENEMY);
 	}
 
 	@Override

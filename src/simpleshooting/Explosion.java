@@ -15,8 +15,6 @@ public class Explosion extends GameObject {
 		this.cntFrame = 0;
 		this.width = 64;
 		this.height = 64;
-		this.displayX = this.width / 2;
-		this.displayY = this.height / 2;
 	}
 
 	@Override
@@ -34,35 +32,35 @@ public class Explosion extends GameObject {
 			return;
 		}
 		if (this.cntFrame >= rate * 7) {
-			g.drawImage(EXPLOSION, x - displayX, y - displayY, x + displayX, y + displayY, 128, 192, 192, 256, null);
+			g.drawImage(EXPLOSION, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 128, 192, 192, 256, null);
 			return;
 		}
 		if (this.cntFrame >= rate * 6) {
-			g.drawImage(EXPLOSION, x - displayX, y - displayY, x + displayX, y + displayY, 128, 128, 192, 192, null);
+			g.drawImage(EXPLOSION, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 128, 128, 192, 192, null);
 			return;
 		}
 		if (this.cntFrame >= rate * 5) {
-			g.drawImage(EXPLOSION, x - displayX, y - displayY, x + displayX, y + displayY, 128, 64, 192, 128, null);
+			g.drawImage(EXPLOSION, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 128, 64, 192, 128, null);
 			return;
 		}
 		if (this.cntFrame >= rate * 4) {
-			g.drawImage(EXPLOSION, x - displayX, y - displayY, x + displayX, y + displayY, 128, 0, 192, 64, null);
+			g.drawImage(EXPLOSION, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 128, 0, 192, 64, null);
 			return;
 		}
 		if (this.cntFrame >= rate * 3) {
-			g.drawImage(EXPLOSION, x - displayX, y - displayY, x + displayX, y + displayY, 0, 192, 64, 256, null);
+			g.drawImage(EXPLOSION, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 0, 192, 64, 256, null);
 			return;
 		}
 		if (this.cntFrame >= rate * 2) {
-			g.drawImage(EXPLOSION, x - displayX, y - displayY, x + displayX, y + displayY, 0, 128, 64, 192, null);
+			g.drawImage(EXPLOSION, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 0, 128, 64, 192, null);
 			return;
 		}
 		if (this.cntFrame >= rate) {
-			g.drawImage(EXPLOSION, x - displayX, y - displayY, x + displayX, y + displayY, 0, 64, 64, 128, null);
+			g.drawImage(EXPLOSION, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 0, 64, 64, 128, null);
 			return;
 		}
 		if (this.cntFrame >= 0) {
-			g.drawImage(EXPLOSION, x - displayX, y - displayY, x + displayX, y + displayY, 0, 0, width, height, null);
+			g.drawImage(EXPLOSION, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 0, 0, width, height, null);
 		}
 	}
 

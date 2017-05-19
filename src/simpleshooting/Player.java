@@ -14,7 +14,7 @@ public class Player extends GameObject {
 	public Player() {
 		this.x = 300;
 		this.y = 300;
-		this.setType(ObjectType.player);
+		this.setType(ObjectType.PLAYER);
 		this.img = MyInterface.Imageset.PLAYER;
 	}
 

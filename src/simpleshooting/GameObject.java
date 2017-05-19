@@ -7,8 +7,6 @@ abstract public class GameObject {
 	protected int life;
 	protected int x;
 	protected int y;
-	protected int displayX;
-	protected int displayY;
 	protected int width;
 	protected int height;
 	protected int gameWidth = MyInterface.GAME_WIDTH;
