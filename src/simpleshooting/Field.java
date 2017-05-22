@@ -22,12 +22,11 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 	private Player player;
 	private EnemyHentai enemyHentai;
 	private List<GameObject> gameObjects;
-	private boolean up, down, left, right, shot, test, isPose;
+	private static boolean up, down, left, right, shot, isPose, test;
 	private final int fps = 30;
 	private int score;
 	private int backImgY1;
 	private int backImgY2;
-	private int bulletRate = 8;
 	private JLabel label;
 	private List<Bullet> bullets = MyInterface.SpriteSet.bullets;
 	private List<Enemy> enemies = MyInterface.SpriteSet.enemies;
@@ -66,6 +65,7 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 
 		for (int i = 0; i < 11; i++) {
 			enemies.add(new EnemyHeri2(i * (600 / 10), 20));
+
 		}
 
 		// objects.add(new TestEnemy(MyInterface.GAME_X_CENTER, -5));
@@ -86,12 +86,9 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 		str = "スコア : " + str;
 		label.setText(str);
 		label.setBounds(400, -10, 150, 50);
-		label.setFont(MyInterface.SCORE_FONT);
+		label.setFont(MyInterface.FontSet.SCORE_FONT);
+		// label.setFont(MyInterface.FontSet.DEFAULT_FONT);
 		this.add(label);
-
-		if (cntFrame % bulletRate == 0 && shot) {
-			bullets.add(player.shoot());
-		}
 
 		/*
 		 * if (cntFrame % 120 == 0) { int[] tmp; tmp = enemyHentai.getEnemy();
@@ -125,7 +122,7 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 			player.update();
 			backImgY1 = backImgY1 < getHeight() ? backImgY1 + 5 : -getHeight() + 5;
 			backImgY2 = backImgY2 < getHeight() ? backImgY2 + 5 : -getHeight() + 5;
-			MyFrame.objectsUpdate();
+			MyMethod.objectsUpdate();
 		}
 
 		enemies.removeIf(s -> !s.isAlive());
@@ -163,15 +160,7 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 		g.drawImage(MyInterface.Imageset.BACKGROUND1, 0, backImgY2, getWidth(), backImgY2 + getHeight(), 0, 0, 800, 600,
 				null);
 
-		for (Enemy ene : enemies) { // 敵の描画
-			ene.draw(g, cntFrame);
-		}
-		for (Bullet b : bullets) {
-			b.draw(g, cntFrame);
-		}
-		for (Explosion ex : explosions) {
-			ex.draw(g, cntFrame);
-		}
+		MyMethod.objectsDraw(g, cntFrame);
 
 		player.draw(g, cntFrame); // 自機
 	}
@@ -235,10 +224,31 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 		case nKEY_DOWN:
 			down = false;
 			break;
-		case KeyEvent.VK_C:
-			test = false;
-			break;
 		}
+	}
+
+	protected static boolean isUp() {
+		return up;
+	}
+
+	protected static boolean isDown() {
+		return down;
+	}
+
+	protected static boolean isShot() {
+		return shot;
+	}
+
+	protected static boolean isTest() {
+		return test;
+	}
+
+	protected static boolean isRight() {
+		return right;
+	}
+
+	protected static boolean isLeft() {
+		return left;
 	}
 
 }

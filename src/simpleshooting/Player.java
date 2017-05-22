@@ -6,10 +6,12 @@ public class Player extends GameObject {
 
 	private int moveSpeed = 8;
 	private int width = 62;
+	private int bulletRate = 8;
 	private int height = 61;
 	private int centerX = width / 2;
 	private int centerY = height / 2;
-	private boolean left, right, shot;
+	private int cntNew;
+	protected boolean left, right, shot, up, down, test;
 
 	public Player() {
 		this.x = 300;
@@ -40,13 +42,17 @@ public class Player extends GameObject {
 
 	@Override
 	public void update() {
+		if (Field.getFrame() % bulletRate == 0 && Field.isShot()) {
+			MyInterface.SpriteSet.bullets.add(new PlayerBullet(x, y));
+		}
+
+		if (cntNew == 0 && Field.isTest()) {
+			MyInterface.SpriteSet.players.add(new PlayerSub(x, y));
+			cntNew++;
+		}
 	}
 
-	public Bullet shoot() {
-		return new PlayerBullet(x, y);
-	}
-
-	public void move(boolean right, boolean left, boolean up, boolean down) {
+	protected void move(boolean right, boolean left, boolean up, boolean down) {
 		this.right = right;
 		this.left = left;
 
