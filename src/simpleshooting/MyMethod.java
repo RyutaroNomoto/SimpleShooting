@@ -52,4 +52,5 @@ abstract class MyMethod {
 			MyInterface.SpriteSet.players.get(i).draw(g, cntFrame);
 		}
 	}
+
 }

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 public class PlayerSub extends Player {
+
 	private int width = 34;
 	private int height = 32;
 	private int bulletRate = 8;
@@ -11,7 +12,7 @@ public class PlayerSub extends Player {
 	private Image img;
 
 	public PlayerSub(int x, int y) {
-		this.x = x - 60;
+		this.x = x;
 		this.y = y;
 		this.setType(ObjectType.PLAYER);
 		this.img = MyInterface.Imageset.PLAYER_SUB;
@@ -19,11 +20,6 @@ public class PlayerSub extends Player {
 
 	@Override
 	public void update() {
-
-		right = Field.isRight();
-		left = Field.isLeft();
-		up = Field.isUp();
-		down = Field.isDown();
 
 		if (right && !left) {
 			if (up || down) {
@@ -39,9 +35,7 @@ public class PlayerSub extends Player {
 				x = x >= 0 ? x - moveSpeed : x;
 			}
 		}
-		if (up && !down)
-
-		{
+		if (up && !down) {
 			if (left || right) {
 				y = (int) (y >= 0 ? y - moveSpeed * 0.7 : y);
 			} else {
@@ -56,7 +50,7 @@ public class PlayerSub extends Player {
 			}
 		}
 
-		if (Field.getFrame() % bulletRate == 0 && Field.isShot()) {
+		if (Field.getFrame() % bulletRate == 0 && shot) {
 			MyInterface.SpriteSet.bullets.add(new PlayerSubBullet(x, y));
 		}
 	}
@@ -65,7 +59,7 @@ public class PlayerSub extends Player {
 	public void draw(Graphics g, int cntFrame) {
 		if (img == null)
 			return;
-		if (Field.isRight() && !Field.isLeft()) {
+		if (right && !left) {
 			// g.drawImage(img, x - width / 2, y - height / 2, x + width / 2, y
 			// + height / 2, 130, 0, 180, 60, null);
 			g.drawImage(img, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 0, 0, 34, 32, null);

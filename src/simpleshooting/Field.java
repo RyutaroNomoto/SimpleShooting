@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Field extends JPanel implements KeyListener, ActionListener {
+public class Field extends JPanel implements ActionListener {
 
 	private boolean isRunninng;
 
@@ -22,7 +20,7 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 	private Player player;
 	private EnemyHentai enemyHentai;
 	private List<GameObject> gameObjects;
-	private static boolean up, down, left, right, shot, isPose, test;
+	private boolean up, down, right, left, test, isPose, shot;
 	private final int fps = 30;
 	private int score;
 	private int backImgY1;
@@ -32,11 +30,7 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 	private List<Enemy> enemies = MyInterface.SpriteSet.enemies;
 	private List<Explosion> explosions = MyInterface.SpriteSet.explosions;
 
-	final int nKEY_SHOT1 = KeyEvent.VK_Z;
-	final int nKEY_LEFT = KeyEvent.VK_LEFT;// KeyEvent.VK_A;
-	final int nKEY_RIGHT = KeyEvent.VK_RIGHT;// KeyEvent.VK_D;
-	final int nKEY_UP = KeyEvent.VK_UP;// KeyEvent.VK_W;
-	final int nKEY_DOWN = KeyEvent.VK_DOWN;// KeyEvent.VK_S;
+	private static MyKey keyboardlistener = MyInterface.KEYBOARD_LISTENER;
 
 	public Field() {
 		cntFrame = 0;
@@ -53,8 +47,8 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 
 		setSize(MyInterface.GAME_WIDTH, MyInterface.GAME_HEIGHT);
 		setBackground(Color.white);
-		setFocusable(true); // KeyListenerはフォーカスする必要がある
-		addKeyListener(this);
+		setFocusable(true);
+		addKeyListener(keyboardlistener);// KeyListenerはフォーカスする必要がある
 		Timer timer = new Timer(1000 / fps, this);// 20ミリ秒ごとに自分の持つ「actionPerformed()」が呼ばれる
 		timer.start();
 		player = new Player();
@@ -81,6 +75,8 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 
 		if (!isRunninng)
 			return;
+
+		KeyUpdate();
 
 		String str = Integer.toString(score);
 		str = "スコア : " + str;
@@ -165,90 +161,14 @@ public class Field extends JPanel implements KeyListener, ActionListener {
 		player.draw(g, cntFrame); // 自機
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
-
-	// キーが押されている時の状態を検知
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// キーが押されたらboolean変数にtrueを代入
-		switch (e.getKeyCode()) {
-		case nKEY_SHOT1:
-			shot = true;
-			break;
-		case KeyEvent.VK_SPACE:
-			shot = true;
-			break;
-		case KeyEvent.VK_ESCAPE:
-			isPose = !isPose;
-			break;
-		case nKEY_RIGHT:
-			right = true;
-			break;
-		case nKEY_LEFT:
-			left = true;
-			break;
-		case nKEY_UP:
-			up = true;
-			break;
-		case nKEY_DOWN:
-			down = true;
-			break;
-		case KeyEvent.VK_C:
-			test = true;
-			break;
-		}
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// キーが離されたらboolean変数にfalseを代入
-		switch (e.getKeyCode()) {
-		case nKEY_SHOT1:
-			shot = false;
-			break;
-		case KeyEvent.VK_SPACE:
-			shot = false;
-			break;
-		case nKEY_RIGHT:
-			right = false;
-			break;
-		case nKEY_LEFT:
-			left = false;
-			break;
-		case nKEY_UP:
-			up = false;
-			break;
-		case nKEY_DOWN:
-			down = false;
-			break;
-		}
-	}
-
-	protected static boolean isUp() {
-		return up;
-	}
-
-	protected static boolean isDown() {
-		return down;
-	}
-
-	protected static boolean isShot() {
-		return shot;
-	}
-
-	protected static boolean isTest() {
-		return test;
-	}
-
-	protected static boolean isRight() {
-		return right;
-	}
-
-	protected static boolean isLeft() {
-		return left;
+	private void KeyUpdate() {
+		up = keyboardlistener.isUp();
+		down = keyboardlistener.isDown();
+		left = keyboardlistener.isLeft();
+		right = keyboardlistener.isRight();
+		shot = keyboardlistener.isShot();
+		isPose = keyboardlistener.isPose();
+		test = keyboardlistener.isTest();
 	}
 
 }

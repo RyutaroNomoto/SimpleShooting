@@ -11,8 +11,9 @@ public interface MyInterface {
 	int GAME_HEIGHT = 700;
 	int GAME_X_CENTER = GAME_WIDTH / 2;
 	int GAME_Y_CENTER = GAME_HEIGHT / 2;
+	MyKey KEYBOARD_LISTENER = new MyKey();
 	// ゲーム内で使うランダムクラスのインスタンス(サイコロは1つでいいよね)
-	static final Random RAND = new Random();
+	Random RAND = new Random();
 
 	public interface Imageset {
 		// ファイルパスが1個でもミスるとすべて初期化できないというエラーが出る

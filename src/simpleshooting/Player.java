@@ -11,7 +11,8 @@ public class Player extends GameObject {
 	private int centerX = width / 2;
 	private int centerY = height / 2;
 	private int cntNew;
-	protected boolean left, right, shot, up, down, test;
+	protected boolean right, left, test, shot, up, down;
+	private static MyKey keyboardlistener = MyInterface.KEYBOARD_LISTENER;
 
 	public Player() {
 		this.x = 300;
@@ -42,19 +43,21 @@ public class Player extends GameObject {
 
 	@Override
 	public void update() {
-		if (Field.getFrame() % bulletRate == 0 && Field.isShot()) {
+
+		KeyUpdate();
+
+		if (Field.getFrame() % bulletRate == 0 && shot) {
 			MyInterface.SpriteSet.bullets.add(new PlayerBullet(x, y));
 		}
 
-		if (cntNew == 0 && Field.isTest()) {
-			MyInterface.SpriteSet.players.add(new PlayerSub(x, y));
+		if (cntNew == 0 && test) {
+			MyInterface.SpriteSet.players.add(new PlayerSub(x - 60, y));
+			MyInterface.SpriteSet.players.add(new PlayerSub(x + 60, y));
 			cntNew++;
 		}
 	}
 
 	protected void move(boolean right, boolean left, boolean up, boolean down) {
-		this.right = right;
-		this.left = left;
 
 		if (right && !left) {
 			if (up || down) {
@@ -86,5 +89,14 @@ public class Player extends GameObject {
 				y = y <= gameHeight ? y + moveSpeed : y;
 			}
 		}
+	}
+
+	private void KeyUpdate() {
+		up = keyboardlistener.isUp();
+		down = keyboardlistener.isDown();
+		left = keyboardlistener.isLeft();
+		right = keyboardlistener.isRight();
+		shot = keyboardlistener.isShot();
+		test = keyboardlistener.isTest();
 	}
 }
