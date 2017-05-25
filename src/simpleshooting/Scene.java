@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Field extends JPanel implements ActionListener {
+public class Scene extends JPanel implements ActionListener {
 
 	private boolean isRunninng;
 
@@ -20,36 +20,34 @@ public class Field extends JPanel implements ActionListener {
 	private Player player;
 	private EnemyHentai enemyHentai;
 	private List<GameObject> gameObjects;
-	private boolean up, down, right, left, test, isPose, shot;
-	private final int fps = 30;
-	private int score;
-	private int backImgY1;
-	private int backImgY2;
-	private JLabel label;
+	protected boolean up, down, right, left, test, isPose, shot;
+	protected final int FPS = 30;
+	protected int score;
+	protected int backImgY1 = 0;
+	protected int backImgY2 = -700;
+	protected JLabel label;
 	private List<Bullet> bullets = MyInterface.SpriteSet.bullets;
 	private List<Enemy> enemies = MyInterface.SpriteSet.enemies;
-	private List<Explosion> explosions = MyInterface.SpriteSet.explosions;
+	private List<Player> players = MyInterface.SpriteSet.players;
+	private List<ExplosionNormal> explosions = MyInterface.SpriteSet.explosions;
+	private List<Item> items = MyInterface.SpriteSet.items;
 
-	private static MyKey keyboardlistener = MyInterface.KEYBOARD_LISTENER;
+	protected MyKey keyboardlistener = MyInterface.KEYBOARD_LISTENER;
 
-	public Field() {
+	public Scene() {
 		cntFrame = 0;
 
 		this.enemyHentai = EnemyHentai.Stage1;
 		this.score = 0;
-		// this.label.setFont(new Font("ＭＳ ゴシック", Font.BOLD, 13));
-		// labelの上にあるパネルが持つレイアウト設定nullにしないとlabelのレイアウトを毎回自動設定される
-		// 真ん中の中心に一瞬labelがちらつく
-		this.setLayout(null);
 
-		this.backImgY1 = 0;
-		this.backImgY2 = -700;
+		// labelの上にあるパネルが持つレイアウト設定nullにしないとlabelのレイアウトを毎回自動設定される
+		this.setLayout(null);
 
 		setSize(MyInterface.GAME_WIDTH, MyInterface.GAME_HEIGHT);
 		setBackground(Color.white);
 		setFocusable(true);
 		addKeyListener(keyboardlistener);// KeyListenerはフォーカスする必要がある
-		Timer timer = new Timer(1000 / fps, this);// 20ミリ秒ごとに自分の持つ「actionPerformed()」が呼ばれる
+		Timer timer = new Timer(1000 / FPS, this);// 20ミリ秒ごとに自分の持つ「actionPerformed()」が呼ばれる
 		timer.start();
 		player = new Player();
 		label = new JLabel();
@@ -76,8 +74,25 @@ public class Field extends JPanel implements ActionListener {
 		if (!isRunninng)
 			return;
 
-		KeyUpdate();
+		update();
 
+		KeyUpdate();
+		repaint();
+	}
+
+	public void draw(Graphics g) {
+		g.clearRect(0, 0, getWidth(), getHeight());
+		g.drawImage(MyInterface.Imageset.BACKGROUND1, 0, backImgY1, getWidth(), backImgY1 + getHeight(), 0, 0, 800, 600,
+				null);
+		g.drawImage(MyInterface.Imageset.BACKGROUND1, 0, backImgY2, getWidth(), backImgY2 + getHeight(), 0, 0, 800, 600,
+				null);
+
+		MyMethods.objectsDraw(g, cntFrame);
+
+		player.draw(g, cntFrame); // 自機
+	}
+
+	public Scene update() {
 		String str = Integer.toString(score);
 		str = "スコア : " + str;
 		label.setText(str);
@@ -114,24 +129,21 @@ public class Field extends JPanel implements ActionListener {
 					enemies.add(new EnemyHeri2(MyInterface.RAND.nextInt(MyInterface.GAME_WIDTH), -5));
 				}
 			}
-			player.move(right, left, up, down);
 			player.update();
 			backImgY1 = backImgY1 < getHeight() ? backImgY1 + 5 : -getHeight() + 5;
 			backImgY2 = backImgY2 < getHeight() ? backImgY2 + 5 : -getHeight() + 5;
-			MyMethod.objectsUpdate();
+			MyMethods.objectsUpdate();
 		}
 
-		enemies.removeIf(s -> !s.isAlive());
-		bullets.removeIf(s -> !s.isAlive());
+		MyMethods.objectsRemove();
+
 		// リスト名.removeIf(名前(基本s,t,u) -> 条件式orメソッド);
 
-		// for (int i = 0; i < objects.size(); i++) {
-		// if (!objects.get(i).isAlive()) {
-		// objects.remove(i);
-		// }
-		// }
-
-		repaint();
+		/*
+		 * for (int i = 0; i < objects.size(); i++) { if
+		 * (!objects.get(i).isAlive()) { objects.remove(i); } }
+		 */
+		return this;
 	}
 
 	/**
@@ -150,15 +162,7 @@ public class Field extends JPanel implements ActionListener {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		g.clearRect(0, 0, getWidth(), getHeight());
-		g.drawImage(MyInterface.Imageset.BACKGROUND1, 0, backImgY1, getWidth(), backImgY1 + getHeight(), 0, 0, 800, 600,
-				null);
-		g.drawImage(MyInterface.Imageset.BACKGROUND1, 0, backImgY2, getWidth(), backImgY2 + getHeight(), 0, 0, 800, 600,
-				null);
-
-		MyMethod.objectsDraw(g, cntFrame);
-
-		player.draw(g, cntFrame); // 自機
+		draw(g);
 	}
 
 	private void KeyUpdate() {

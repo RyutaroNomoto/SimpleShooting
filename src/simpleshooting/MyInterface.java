@@ -17,20 +17,22 @@ public interface MyInterface {
 
 	public interface Imageset {
 		// ファイルパスが1個でもミスるとすべて初期化できないというエラーが出る
-		Image ENEMY_HERI = MyMethod.setImage("EnemyHeri.png");
-		Image PLAYER = MyMethod.setImage("Player.png");
-		Image BACKGROUND1 = MyMethod.setImage("Background1.png");
-		Image BACKGROUND2 = MyMethod.setImage("Background2.png");
-		Image EXPLOSION = MyMethod.setImage("Explosion.png");
-		Image PLAYER_BULLET = MyMethod.setImage("PlayerBullet.png");
+		Image ENEMY_HERI = MyMethods.setImage("EnemyHeri.png");
+		Image PLAYER = MyMethods.setImage("Player.png");
+		Image BACKGROUND1 = MyMethods.setImage("Background1.png");
+		Image BACKGROUND2 = MyMethods.setImage("Background2.png");
+		Image EXPLOSION = MyMethods.setImage("Explosion.png");
+		Image PLAYER_BULLET = MyMethods.setImage("PlayerBullet.png");
+		Image PLAYER_BULLET2 = MyMethods.setImage("PlayerBullet2.png");
 		Image PLAYER_SUB = PLAYER_BULLET;
 	}
 
 	public interface SpriteSet {
-		List<Explosion> explosions = new ArrayList<Explosion>();
+		List<ExplosionNormal> explosions = new ArrayList<ExplosionNormal>();
 		List<Enemy> enemies = new ArrayList<Enemy>();
 		List<Bullet> bullets = new ArrayList<Bullet>();
 		List<Player> players = new ArrayList<Player>();
+		List<Item> items = new ArrayList<Item>();
 	}
 
 	public interface FontSet {

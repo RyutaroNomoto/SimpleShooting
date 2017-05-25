@@ -29,7 +29,7 @@ public class EnemyHeri1 extends Enemy {
 		if (!isAlive() || img == null)
 			return;
 		g.drawImage(img, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 63, 0, 109, 53, null);
-		if (Field.getFrame() % 6 < 3) {
+		if (Scene.getFrame() % 6 < 3) {
 			g.drawImage(img, x - 24, y - 15, x + 24, y + 15, 117, 0, 166, 30, null);
 		} else {
 			g.drawImage(img, x - 15, y - 24, x + 15, y + 24, 128, 46, 157, 93, null);
@@ -40,7 +40,7 @@ public class EnemyHeri1 extends Enemy {
 	protected void delete() {
 		isAlive = false;
 		if (y < MyInterface.GAME_HEIGHT) {
-			MyInterface.SpriteSet.explosions.add(new Explosion(x, y));
+			MyInterface.SpriteSet.explosions.add(new ExplosionNormal(x, y));
 		}
 	}
 

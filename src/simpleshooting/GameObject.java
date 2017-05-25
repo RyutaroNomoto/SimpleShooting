@@ -13,7 +13,9 @@ abstract public class GameObject {
 	protected int gameHeight = MyInterface.GAME_HEIGHT;
 	private ObjectType type;
 	protected boolean isAlive = true;
+	protected boolean right, left, test, test2, shot, up, down;
 	protected Image img;
+	private static MyKey keyboardlistener = MyInterface.KEYBOARD_LISTENER;
 
 	protected boolean isAlive() {
 		return isAlive;
@@ -27,15 +29,22 @@ abstract public class GameObject {
 		return this.type;
 	}
 
+	/**
+	 * @param type
+	 *            衝突判定の際、敵か否かを判断するための属性
+	 */
 	protected void setType(ObjectType type) {
 		this.type = type;
 	}
 
 	/**
 	 * 自分と他のオブジェクトが衝突したか検査する
-	 * @param object 自分と衝突したか検査するオブジェクト
+	 *
+	 * @param object
+	 *            自分と衝突したか検査するオブジェクト
 	 * @return boolean
 	 */
+
 	protected boolean collideWith(GameObject object) {
 		// 引数として与えられたobjectが死んでいない and 2つのobjectが違う属性(敵同士)ならあたり判定処理をする
 		if (object.isAlive() && this.type != object.getType()) {
@@ -69,6 +78,19 @@ abstract public class GameObject {
 
 	protected int getHeight() {
 		return height;
+	}
+
+	/**
+	 * キー入力を更新するメソッド
+	 */
+	protected void KeyUpdate() {
+		up = keyboardlistener.isUp();
+		down = keyboardlistener.isDown();
+		left = keyboardlistener.isLeft();
+		right = keyboardlistener.isRight();
+		shot = keyboardlistener.isShot();
+		test = keyboardlistener.isTest();
+		test2 = keyboardlistener.isTest2();
 	}
 
 	abstract protected void update();

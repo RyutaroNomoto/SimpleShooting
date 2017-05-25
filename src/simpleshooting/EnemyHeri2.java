@@ -22,8 +22,8 @@ public class EnemyHeri2 extends EnemyHeri1 {
 	protected void draw(Graphics g, int cntFrame) {
 		if (!isAlive() || img == null)
 			return;
-		g.drawImage(img, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 0, 0, 48, 48, null);
-		if (Field.getFrame() % 6 < 3) {
+		g.drawImage(img, x - width / 2, y - height / 2, x + width / 2, y + height / 2, 0, 0, width, height, null);
+		if (Scene.getFrame() % 6 < 3) {
 			g.drawImage(img, x - 24, y - 15, x + 24, y + 15, 117, 0, 166, 30, null);
 		} else {
 			g.drawImage(img, x - 15, y - 24, x + 15, y + 24, 128, 46, 157, 93, null);

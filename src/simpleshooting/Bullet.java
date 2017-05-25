@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 public class Bullet extends GameObject {
 
-	private int moveSpeed = 10;
+	protected int moveSpeed = 10;
 
 	public Bullet(int x, int y) {
 		this.x = x;

@@ -1,6 +1,7 @@
 package simpleshooting;
 
 import java.awt.Graphics;
+import java.util.List;
 
 public class Player extends GameObject {
 
@@ -8,11 +9,7 @@ public class Player extends GameObject {
 	private int width = 62;
 	private int bulletRate = 8;
 	private int height = 61;
-	private int centerX = width / 2;
-	private int centerY = height / 2;
-	private int cntNew;
-	protected boolean right, left, test, shot, up, down;
-	private static MyKey keyboardlistener = MyInterface.KEYBOARD_LISTENER;
+	private List<Player> players = MyInterface.SpriteSet.players;
 
 	public Player() {
 		this.x = 300;
@@ -46,19 +43,33 @@ public class Player extends GameObject {
 
 		KeyUpdate();
 
-		if (Field.getFrame() % bulletRate == 0 && shot) {
+		movePlayer();
+
+		if (Scene.getFrame() % bulletRate == 0 && shot) {
 			MyInterface.SpriteSet.bullets.add(new PlayerBullet(x, y));
 		}
 
-		if (cntNew == 0 && test) {
-			MyInterface.SpriteSet.players.add(new PlayerSub(x - 60, y));
-			MyInterface.SpriteSet.players.add(new PlayerSub(x + 60, y));
-			cntNew++;
+		// Cが押されたら初回のみプレイヤーの子機を左右にnewする(テスト用)
+		if (players.size() < 3 && test) {
+			players.add(new PlayerSub(x, y, -60, this));
+			players.add(new PlayerSub(x, y, 60, this));
 		}
 	}
 
-	protected void move(boolean right, boolean left, boolean up, boolean down) {
+	protected boolean collideWith(Item item) {
+		// アイテムとのあたり判定
+			if (x < item.x + item.width && item.x < x + width && y < item.y + item.height
+					&& item.y < y + height) {
+				hit();
+				return true;
+			}
+		return false;
+	}
 
+	/**
+	 * プレイヤー移動用メソッド
+	 */
+	protected void movePlayer() {
 		if (right && !left) {
 			if (up || down) {
 				x = (int) (x <= gameWidth ? x + moveSpeed * 0.7 : x);
@@ -91,12 +102,4 @@ public class Player extends GameObject {
 		}
 	}
 
-	private void KeyUpdate() {
-		up = keyboardlistener.isUp();
-		down = keyboardlistener.isDown();
-		left = keyboardlistener.isLeft();
-		right = keyboardlistener.isRight();
-		shot = keyboardlistener.isShot();
-		test = keyboardlistener.isTest();
-	}
 }

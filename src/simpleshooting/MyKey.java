@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class MyKey implements KeyListener {
 
-	private static boolean up, down, left, right, shot, isPose, test;
+	private boolean up, down, left, right, shot, isPose, testkeyC, testkeyS;
 
 	final int nKEY_SHOT1 = KeyEvent.VK_Z;
 	final int nKEY_LEFT = KeyEvent.VK_LEFT;// KeyEvent.VK_A;
@@ -44,7 +44,10 @@ public class MyKey implements KeyListener {
 			down = true;
 			break;
 		case KeyEvent.VK_C:
-			test = true;
+			testkeyC = true;
+			break;
+		case KeyEvent.VK_S:
+			testkeyS = true;
 			break;
 		}
 
@@ -72,6 +75,12 @@ public class MyKey implements KeyListener {
 		case nKEY_DOWN:
 			down = false;
 			break;
+		case KeyEvent.VK_C:
+			testkeyC = false;
+			break;
+		case KeyEvent.VK_S:
+			testkeyS = false;
+			break;
 		}
 	}
 
@@ -88,7 +97,11 @@ public class MyKey implements KeyListener {
 	}
 
 	protected boolean isTest() {
-		return test;
+		return testkeyC;
+	}
+
+	protected boolean isTest2() {
+		return testkeyS;
 	}
 
 	protected boolean isRight() {
@@ -98,7 +111,8 @@ public class MyKey implements KeyListener {
 	protected boolean isLeft() {
 		return left;
 	}
-	protected boolean isPose(){
+
+	protected boolean isPose() {
 		return isPose;
 	}
 
