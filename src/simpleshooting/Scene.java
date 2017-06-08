@@ -97,8 +97,8 @@ public class Scene extends JPanel implements ActionListener {
 		str = "スコア : " + str;
 		label.setText(str);
 		label.setBounds(400, -10, 150, 50);
-		label.setFont(MyInterface.FontSet.SCORE_FONT);
-		// label.setFont(MyInterface.FontSet.DEFAULT_FONT);
+		// label.setFont(MyInterface.FontSet.SCORE_FONT);
+		label.setFont(MyInterface.FontSet.DEFAULT_FONT);
 		this.add(label);
 
 		/*
@@ -113,17 +113,29 @@ public class Scene extends JPanel implements ActionListener {
 				continue; // isAlive()で生きているか確認
 			}
 			// collideWidthﾒｿｯﾄﾞでobjectsList内のobject全てと当たり判定検査をする
-			for (Bullet b : bullets) { // プレイヤーの弾と敵の当たり判定
-				if (isCollision(b, ene)) { // 2つのゲームオブジェクトのあたり判定をbooleanで返す
+			for (Bullet b : bullets) {
+				// プレイヤーの弾と敵の当たり判定
+				if (isCollision(b, ene)) {
+					// 2つのゲームオブジェクトのあたり判定をbooleanで返す
 					b.hit();
 					score += ene.hit();
 				}
 			}
 		}
-		if (!isPose) {
-			cntFrame++; // フレーム数をカウントアップ
+		for (Item i : items) { // プレイヤーとアイテムのあたり判定
+			if (player.collideWith(i)) {
+				i.hit();
+			}
+		}
+
+		if (!isPose)
+
+		{
+			cntFrame++;
+			// フレーム数をカウントアップ
 			if (enemies.size() <= 9 && cntFrame % 15 == 0) {
-				if (MyInterface.RAND.nextBoolean()) { // 半々の確率でHeri1かHeri2を出現させる
+				if (MyInterface.RAND.nextBoolean()) {
+					// 半々の確率でHeri1かHeri2を出現させる
 					enemies.add(new EnemyHeri1(MyInterface.RAND.nextInt(MyInterface.GAME_WIDTH), -5));
 				} else {
 					enemies.add(new EnemyHeri2(MyInterface.RAND.nextInt(MyInterface.GAME_WIDTH), -5));
@@ -143,6 +155,7 @@ public class Scene extends JPanel implements ActionListener {
 		 * for (int i = 0; i < objects.size(); i++) { if
 		 * (!objects.get(i).isAlive()) { objects.remove(i); } }
 		 */
+
 		return this;
 	}
 

@@ -15,6 +15,8 @@ public interface MyInterface {
 	// ゲーム内で使うランダムクラスのインスタンス(サイコロは1つでいいよね)
 	Random RAND = new Random();
 
+	String strPause = "ポーズ";
+
 	public interface Imageset {
 		// ファイルパスが1個でもミスるとすべて初期化できないというエラーが出る
 		Image ENEMY_HERI = MyMethods.setImage("EnemyHeri.png");

@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 abstract class MyMethods {
 
-	private static List<Enemy> enemies =  MyInterface.SpriteSet.enemies;
+	private static List<Enemy> enemies = MyInterface.SpriteSet.enemies;
 	private static List<Bullet> bullets = MyInterface.SpriteSet.bullets;
 	private static List<Player> players = MyInterface.SpriteSet.players;
 	private static List<ExplosionNormal> explosions = MyInterface.SpriteSet.explosions;
@@ -50,17 +50,17 @@ abstract class MyMethods {
 	}
 
 	public static void objectsDraw(Graphics g, int cntFrame) {
-		for (int i = 0; i < MyInterface.SpriteSet.enemies.size(); i++) {
-			MyInterface.SpriteSet.enemies.get(i).draw(g, cntFrame);
+
+		for (Enemy ene : enemies) {
+			ene.draw(g, cntFrame);
 		}
-		for (int i = 0; i < MyInterface.SpriteSet.bullets.size(); i++) {
-			MyInterface.SpriteSet.bullets.get(i).draw(g, cntFrame);
+
+		for (Bullet b : bullets) {
+			b.draw(g, cntFrame);
 		}
-		for (int i = 0; i < MyInterface.SpriteSet.explosions.size(); i++) {
-			MyInterface.SpriteSet.explosions.get(i).draw(g, cntFrame);
-		}
-		for (int i = 0; i < MyInterface.SpriteSet.players.size(); i++) {
-			MyInterface.SpriteSet.players.get(i).draw(g, cntFrame);
+
+		for (Explosion ex : explosions) {
+			ex.draw(g, cntFrame);
 		}
 
 		for (Player p : players) {

@@ -8,7 +8,7 @@ public class SimpleShooting {
 
 	public static void main(String[] args) {
 
-		Scene Field = new Scene();
+		Scene scene = new Scene();
 
 		JFrame f = new JFrame("SimpleShooting"); // frame.setTitle("hoge");とも書ける
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,7 +17,7 @@ public class SimpleShooting {
 		f.getContentPane().setPreferredSize(new Dimension(MyInterface.GAME_WIDTH, MyInterface.GAME_HEIGHT));
 		f.pack();
 		f.setLocationRelativeTo(null);
-		f.add(Field);
+		f.add(scene);
 		f.setVisible(true);
 	}
 

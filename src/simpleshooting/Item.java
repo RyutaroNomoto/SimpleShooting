@@ -13,6 +13,7 @@ public class Item extends GameObject {
 		this.width = 15;
 		this.height = 15;
 		this.moveSpeed = 5;
+		this.life = 1;
 	}
 
 	@Override

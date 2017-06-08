@@ -46,13 +46,11 @@ abstract public class GameObject {
 	 */
 
 	protected boolean collideWith(GameObject object) {
-		// 引数として与えられたobjectが死んでいない and 2つのobjectが違う属性(敵同士)ならあたり判定処理をする
-		if (object.isAlive() && this.type != object.getType()) {
-			if (x < object.x + object.width && object.x < x + width && y < object.y + object.height
-					&& object.y < y + height) {
-				hit();
-				return true;
-			}
+		// 引数として与えられたobjectが死んでいない
+		if (x < object.x + object.width && object.x < x + width && y < object.y + object.height
+				&& object.y < y + height) {
+			hit();
+			return true;
 		}
 		return false;
 	}

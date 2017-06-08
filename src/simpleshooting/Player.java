@@ -49,8 +49,15 @@ public class Player extends GameObject {
 			MyInterface.SpriteSet.bullets.add(new PlayerBullet(x, y));
 		}
 
-		// Cが押されたら初回のみプレイヤーの子機を左右にnewする(テスト用)
+		// Cが押されたらプレイヤーの子機を左右にnewする(テスト用)
 		if (players.size() < 3 && test) {
+			players.add(new PlayerSub(x, y, -60, this));
+			players.add(new PlayerSub(x, y, 60, this));
+		}
+	}
+
+	private void expansionSub() {
+		if (players.size() < 3) {
 			players.add(new PlayerSub(x, y, -60, this));
 			players.add(new PlayerSub(x, y, 60, this));
 		}
@@ -58,11 +65,10 @@ public class Player extends GameObject {
 
 	protected boolean collideWith(Item item) {
 		// アイテムとのあたり判定
-			if (x < item.x + item.width && item.x < x + width && y < item.y + item.height
-					&& item.y < y + height) {
-				hit();
-				return true;
-			}
+		if (x < item.x + item.width && item.x < x + width && y < item.y + item.height && item.y < y + height) {
+			expansionSub();// プレイヤーの子機をnewするメソッド
+			return true;
+		}
 		return false;
 	}
 
